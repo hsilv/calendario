@@ -1,0 +1,51 @@
+@use "../../../styles/_variables.scss" as vars;
+@use "sass:color";
+
+$color-muni-dark: color.adjust(vars.$color-muni, $lightness: -3%);
+
+.Container {
+  display: flex;
+  flex-direction: row;
+  column-gap: 1rem;
+}
+
+.Icon {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.Reverse {
+  transform: rotate(180deg);
+}
+
+.IconButton,
+.Button {
+  --bs-btn-color: #{vars.$color-muni};
+  --bs-btn-bg: #{vars.$background-color-body};
+  --bs-btn-border-color: #{vars.$background-color-body};
+  --bs-btn-hover-color: #{vars.$background-color-body};
+  --bs-btn-hover-bg: #{vars.$color-muni};
+  --bs-btn-hover-border-color: #{vars.$color-muni};
+  --bs-btn-active-color: #{vars.$background-color-body};
+  --bs-btn-active-bg: #{$color-muni-dark};
+  --bs-btn-active-border-color: #{$color-muni-dark};
+  --bs-btn-disabled-color: #{vars.$color-muni};
+  --bs-btn-disabled-bg: #{vars.$background-color-body};
+  --bs-btn-disabled-border-color: #{vars.$background-color-body};
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.IconButton {
+  --bs-btn-bg: white;
+}
+
+.ButtonGroup {
+  box-shadow: 0 0 0 1px #e9ecef;
+}
+
+.Button {
+  font-weight: bold;
+}

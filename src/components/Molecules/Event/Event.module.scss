@@ -1,0 +1,42 @@
+@use "../../../styles/_variables.scss" as vars;
+
+.Container {
+  width: 100%;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding-inline: 20px;
+  padding-block: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 1rem;
+  color: #{vars.$heading-color};
+}
+
+.Popover {
+  --bs-popover-header-bg: #{vars.$color-muni};
+  --bs-popover-arrow-border: #{vars.$color-muni};
+  border: none;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  width: fit-content;
+  max-width: unset !important;
+}
+
+.Header {
+  font-weight: bold;
+  color: #{vars.$heading-color};
+  border: none;
+}
+
+.EventBody {
+  row-gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.Icon {
+  color: #{vars.$color-muni};
+}

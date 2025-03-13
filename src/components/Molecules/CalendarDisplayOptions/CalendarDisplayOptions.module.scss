@@ -1,0 +1,51 @@
+@use "../../../styles/_variables.scss" as vars;
+@use "sass:color";
+
+$color-muni-dark: color.adjust(vars.$color-muni, $lightness: -6%);
+$color-muni-darken: color.adjust(vars.$color-muni, $lightness: -3%);
+
+.Button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  font-weight: bold;
+  --bs-btn-color: #{vars.$background-color-body};
+  --bs-btn-bg: #{vars.$color-muni};
+  --bs-btn-border-color: #{vars.$color-muni};
+  --bs-btn-hover-color: #{vars.$background-color-body};
+  --bs-btn-hover-bg: #{$color-muni-darken};
+  --bs-btn-hover-border-color: #{$color-muni-darken};
+  --bs-btn-active-bg: #{$color-muni-dark};
+  --bs-btn-active-border-color: #{$color-muni-dark};
+  --bs-btn-disabled-color: #{vars.$color-muni};
+  --bs-btn-disabled-bg: #{vars.$background-color-body};
+  --bs-btn-disabled-border-color: #{vars.$background-color-body};
+
+  &:not(:last-child) {
+    &:not(:first-child) {
+      border-right: 1px solid #{$color-muni-dark};
+      border-left: 1px solid #{$color-muni-dark};
+    }
+  }
+
+  &:first-child {
+    border-right: none;
+  }
+
+  &:last-child {
+    border-left: 1px solid #{$color-muni-dark};
+  }
+}
+
+.Active {
+  --bs-btn-color: #{vars.$background-color-body};
+  --bs-btn-bg: #{$color-muni-dark};
+  --bs-btn-border-color: #{$color-muni-dark};
+  --bs-btn-hover-color: #{vars.$background-color-body};
+  --bs-btn-hover-bg: #{$color-muni-dark};
+  --bs-btn-hover-border-color: #{$color-muni-dark};
+  --bs-btn-active-bg: #{$color-muni-dark};
+  --bs-btn-active-border-color: #{$color-muni-dark};
+}

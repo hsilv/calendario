@@ -1,0 +1,61 @@
+{
+  "name": "calendario",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "dependencies": {
+    "@storybook/preset-scss": "^1.0.3",
+    "@types/leaflet": "^1.9.16",
+    "@types/node": "^22.13.10",
+    "bootstrap": "^5.3.3",
+    "classnames": "^2.5.1",
+    "leaflet": "^1.9.4",
+    "react": "^19.0.0",
+    "react-bootstrap": "^2.10.9",
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
+    "react-leaflet": "^5.0.0",
+    "sass": "^1.85.1"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.5",
+    "@eslint/js": "^9.21.0",
+    "@storybook/addon-essentials": "^8.6.4",
+    "@storybook/addon-onboarding": "^8.6.4",
+    "@storybook/blocks": "^8.6.4",
+    "@storybook/experimental-addon-test": "^8.6.4",
+    "@storybook/react": "^8.6.4",
+    "@storybook/react-vite": "^8.6.4",
+    "@storybook/test": "^8.6.4",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/browser": "^3.0.8",
+    "@vitest/coverage-v8": "^3.0.8",
+    "eslint": "^9.21.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "eslint-plugin-storybook": "^0.11.4",
+    "globals": "^15.15.0",
+    "playwright": "^1.51.0",
+    "storybook": "^8.6.4",
+    "typescript": "~5.7.2",
+    "typescript-eslint": "^8.24.1",
+    "vite": "^6.2.0",
+    "vitest": "^3.0.8"
+  },
+  "packageManager": "pnpm@10.0.0-rc.2+sha512.b6e59b96f90ca92449ac2f6dca9b430880448fc97d21f0fa9200e3d5ddb5289ad535255400554f7f3486e2d60058492161aaa9b58828e81f50c096718be9d156",
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended"
+    ]
+  }
+}
