@@ -1,9 +1,13 @@
 @use "../../../styles/_variables.scss" as vars;
 @use "sass:color";
 
+.CalendarContainer {
+  overflow-x: auto;
+}
+
 .Calendar {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7, minmax(165px, 1fr));
 }
 
 .Header {
@@ -35,12 +39,16 @@
 }
 
 .Day {
-  min-height: 120px;
-  max-height: 120px;
+  min-height: 170px;
+  max-height: 170px;
   border: 1px solid #ccc;
   padding: 0.5rem;
   position: relative;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 0.5rem;
 }
 
 .Faded {

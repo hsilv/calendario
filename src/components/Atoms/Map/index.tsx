@@ -1,14 +1,19 @@
-import React from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import React, { useEffect, useState } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  useMapEvents,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
-// Importar las imágenes de los iconos
 import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
 import iconUrl from "leaflet/dist/images/marker-icon.png";
 import shadowUrl from "leaflet/dist/images/marker-shadow.png";
+import classNames from "classnames";
 
-// Fix for default icon issue with Webpack
 const DefaultIcon = L.icon({
   iconRetinaUrl,
   iconUrl,
@@ -21,24 +26,73 @@ const DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-const Map: React.FC = () => {
-  const position: [number, number] = [51.505, -0.09]; // Default position (latitude, longitude)
+interface MapProps {
+  lat?: number;
+  lng?: number;
+  className?: string;
+}
+
+const Map: React.FC<MapProps> = ({ lat, lng, className }) => {
+  const [position, setPosition] = useState<[number, number] | null>(null);
+  const [markerPosition, setMarkerPosition] = useState<[number, number] | null>(
+    null
+  );
+
+  useEffect(() => {
+    if (lat !== undefined && lng !== undefined) {
+      setPosition([lat, lng]);
+      setMarkerPosition([lat, lng]);
+    } else {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const coords = [
+            position.coords.latitude,
+            position.coords.longitude,
+          ] as [number, number];
+          setPosition(coords);
+          setMarkerPosition(coords);
+        },
+        () => {
+          const defaultPosition: [number, number] = [51.505, -0.09];
+          setPosition(defaultPosition);
+          setMarkerPosition(defaultPosition);
+        }
+      );
+    }
+  }, [lat, lng]);
+
+  const MapClickHandler = () => {
+    useMapEvents({
+      click: (e) => {
+        setMarkerPosition([e.latlng.lat, e.latlng.lng]);
+      },
+    });
+    return null;
+  };
+
+  if (!position) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <MapContainer
       center={position}
       zoom={13}
-      style={{ height: "100%", width: "100%" }}
+      style={{ width: "100%" }}
+      className={classNames(className)}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-      <Marker position={position}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
+      <MapClickHandler />
+      {markerPosition && (
+        <Marker position={markerPosition}>
+          <Popup>
+            Marcador personalizado. <br /> Puedes moverlo.
+          </Popup>
+        </Marker>
+      )}
     </MapContainer>
   );
 };

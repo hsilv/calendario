@@ -1,29 +1,16 @@
 import React from "react";
 import styles from "./Calendar.module.scss";
+import { Event } from "@components/Molecules/Event";
+import { events as defaults } from "./placeholder";
+import {
+  getEndDayOfWeek,
+  getDaysInMonth,
+  getStartDayOfWeek,
+  daysOfWeek,
+} from "./utils";
+import { CalendarProps } from "./types";
 
-const daysOfWeek = [
-  "Domingo",
-  "Lunes",
-  "Martes",
-  "Miércoles",
-  "Jueves",
-  "Viernes",
-  "Sábado",
-];
-
-const getDaysInMonth = (year: number, month: number) => {
-  return new Date(year, month + 1, 0).getDate();
-};
-
-const getStartDayOfWeek = (year: number, month: number) => {
-  return new Date(year, month, 1).getDay();
-};
-
-const getEndDayOfWeek = (year: number, month: number) => {
-  return new Date(year, month + 1, 0).getDay();
-};
-
-const Calendar: React.FC = () => {
+const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
   const today = new Date();
   const currentYear = today.getFullYear();
   const currentMonth = today.getMonth();
@@ -35,13 +22,6 @@ const Calendar: React.FC = () => {
   const daysInPreviousMonth = getDaysInMonth(currentYear, currentMonth - 1);
   const daysFromPreviousMonth = startDayOfWeek;
   const daysFromNextMonth = 6 - endDayOfWeek;
-
-  const events = [
-    { date: 5, content: <div>Evento 1</div> },
-    { date: 5, content: <div>Evento 2</div> },
-    { date: 12, content: <div>Evento 3</div> },
-    { date: 20, content: <div>Evento 4</div> },
-  ];
 
   const days = [
     ...Array.from({ length: daysFromPreviousMonth }, (_, i) => ({
@@ -59,30 +39,42 @@ const Calendar: React.FC = () => {
   ];
 
   return (
-    <div className={styles.Calendar}>
-      <div className={styles.Header}>
-        {daysOfWeek.map((day) => (
-          <div key={day} className={styles.DayOfWeek}>
-            {day}
-          </div>
-        ))}
-      </div>
-      <div className={styles.Days}>
-        {days.map(({ day, currentMonth }, index) => (
-          <div
-            key={index}
-            className={`${styles.Day} ${!currentMonth ? styles.Faded : ""}`}
-          >
-            <div className={styles.DayNumber}>{day}</div>
-            {events
-              .filter((event) => event.date === day && currentMonth)
-              .map((event, index) => (
-                <div key={index} className={styles.Event}>
-                  {event.content}
-                </div>
-              ))}
-          </div>
-        ))}
+    <div className={styles.CalendarContainer}>
+      <div className={styles.Calendar}>
+        <div className={styles.Header}>
+          {daysOfWeek.map((day) => (
+            <div key={day} className={styles.DayOfWeek}>
+              {day}
+            </div>
+          ))}
+        </div>
+        <div className={styles.Days}>
+          {days.map(({ day, currentMonth }, index) => (
+            <div
+              key={index}
+              className={`${styles.Day} ${!currentMonth ? styles.Faded : ""}`}
+            >
+              <div className={styles.DayNumber}>{day}</div>
+              {events
+                .filter(
+                  (event) => event.init_date.getDate() === day && currentMonth
+                )
+                .map((event, index) => (
+                  <Event
+                    key={index}
+                    name={event.name}
+                    desc={event.desc}
+                    place={event.place}
+                    init_date={event.init_date}
+                    final_date={event.final_date}
+                    lat={event.lat}
+                    lng={event.lng}
+                    parkings={event.parkings}
+                  />
+                ))}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

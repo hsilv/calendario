@@ -6,12 +6,17 @@ import {
   CalendarDisplayOptions,
   CalendarPagination,
 } from "@components/Molecules";
+import { CalendarHeaderProps } from "./types";
 
-const CalendarHeader: React.FC = () => {
+const CalendarHeader: React.FC<CalendarHeaderProps> = ({ onAddEvent }) => {
   return (
     <div className={classNames(styles.Container)}>
       <h1 className={classNames(styles.Heading)}>Calendario de Eventos</h1>
-      <Button variant="success" className={classNames(styles.Button)}>
+      <Button
+        variant="success"
+        className={classNames(styles.Button)}
+        onClick={onAddEvent}
+      >
         Agregar Evento
       </Button>
 

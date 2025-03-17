@@ -17,6 +17,7 @@
     "@types/node": "^22.13.10",
     "bootstrap": "^5.3.3",
     "classnames": "^2.5.1",
+    "google-maps-react": "^2.0.6",
     "leaflet": "^1.9.4",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",

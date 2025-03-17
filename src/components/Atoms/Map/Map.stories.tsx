@@ -12,4 +12,15 @@ export default {
 const Template: StoryFn = (args) => <Map {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  lat: 51.505,
+  lng: -0.09,
+  className: "custom-map-class",
+};
+
+export const WithGeolocation = Template.bind({});
+WithGeolocation.args = {
+  lat: undefined,
+  lng: undefined,
+  className: "custom-map-class",
+};

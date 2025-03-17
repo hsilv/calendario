@@ -4,6 +4,7 @@ import classNames from "classnames";
 import styles from "./Event.module.scss";
 import { OverlayTrigger, Popover } from "react-bootstrap";
 import { FaDotCircle } from "react-icons/fa";
+import { Map } from "@components/Atoms/Map";
 
 const Event: React.FC<EventProps> = ({
   name,
@@ -42,6 +43,7 @@ const Event: React.FC<EventProps> = ({
             <strong>Parqueos disponibles: </strong>
             {parkings}
           </span>
+          <Map className={classNames(styles.Map)} />
         </div>
       </Popover.Body>
     </Popover>
