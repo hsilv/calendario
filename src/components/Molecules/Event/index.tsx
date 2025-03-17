@@ -50,7 +50,11 @@ const Event: React.FC<EventProps> = ({
   );
 
   return (
-    <OverlayTrigger trigger="hover" placement="right" overlay={popover}>
+    <OverlayTrigger
+      trigger={["hover", "focus", "click"]}
+      placement="right"
+      overlay={popover}
+    >
       <div className={classNames(styles.Container)}>
         <FaDotCircle className={classNames(styles.Icon)} />
         {name}
