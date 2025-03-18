@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import classNames from "classnames";
 import styles from "./Calendar.module.scss";
 import { Event } from "@components/Molecules/Event";
 import { events as defaults } from "./placeholder";
@@ -7,13 +8,24 @@ import {
   getDaysInMonth,
   getStartDayOfWeek,
   daysOfWeek,
+  transformEvents,
 } from "./utils";
 import { CalendarProps } from "./types";
+import { CalendarContext } from "@/context/Calendar/context";
 
 const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
+  const context = useContext(CalendarContext);
+
+  if (!context) {
+    throw new Error("CalendarHeader must be used within a CalendarProvider");
+  }
+
+  const { currentDate } = context;
+
+  const transformedEvents = transformEvents(events);
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
   const today = new Date();
-  const currentYear = today.getFullYear();
-  const currentMonth = today.getMonth();
 
   const daysInCurrentMonth = getDaysInMonth(currentYear, currentMonth);
   const startDayOfWeek = getStartDayOfWeek(currentYear, currentMonth);
@@ -49,31 +61,50 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
           ))}
         </div>
         <div className={styles.Days}>
-          {days.map(({ day, currentMonth }, index) => (
-            <div
-              key={index}
-              className={`${styles.Day} ${!currentMonth ? styles.Faded : ""}`}
-            >
-              <div className={styles.DayNumber}>{day}</div>
-              {events
-                .filter(
-                  (event) => event.init_date.getDate() === day && currentMonth
-                )
-                .map((event, index) => (
-                  <Event
-                    key={index}
-                    name={event.name}
-                    desc={event.desc}
-                    place={event.place}
-                    init_date={event.init_date}
-                    final_date={event.final_date}
-                    lat={event.lat}
-                    lng={event.lng}
-                    parkings={event.parkings}
-                  />
-                ))}
-            </div>
-          ))}
+          {days.map(({ day, currentMonth: isCurrentMonth }, index) => {
+            const isToday =
+              isCurrentMonth &&
+              day === today.getDate() &&
+              currentMonth === today.getMonth() &&
+              currentYear === today.getFullYear();
+
+            return (
+              <div
+                key={index}
+                className={classNames(styles.Day, {
+                  [styles.Faded]: !isCurrentMonth,
+                  [styles.Today]: isToday,
+                })}
+              >
+                <div className={styles.DayNumber}>{day}</div>
+                {transformedEvents
+                  .filter(
+                    (event) =>
+                      event.fechai.getFullYear() === currentYear &&
+                      event.fechai.getMonth() === currentMonth &&
+                      event.fechai.getDate() === day &&
+                      isCurrentMonth
+                  )
+                  .map((event, index) => {
+                    const lat = parseFloat(event.extendedProps.latitud);
+                    const lng = parseFloat(event.extendedProps.longitud);
+                    return (
+                      <Event
+                        key={index}
+                        name={event.title}
+                        desc={event.extendedProps.descripcion}
+                        place={event.extendedProps.lugar}
+                        init_date={event.fechai}
+                        final_date={event.fechaf}
+                        lat={isNaN(lat) ? 0 : lat}
+                        lng={isNaN(lng) ? 0 : lng}
+                        parkings={0}
+                      />
+                    );
+                  })}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

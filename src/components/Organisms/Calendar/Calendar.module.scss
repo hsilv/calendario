@@ -5,6 +5,10 @@
   overflow-x: auto;
 }
 
+.Today {
+  background-color: #{color.adjust(vars.$color-muni, $lightness: 45%)};
+}
+
 .Calendar {
   display: grid;
   grid-template-columns: repeat(7, minmax(165px, 1fr));
@@ -65,7 +69,7 @@
 .DayNumber {
   position: sticky;
   top: 0;
-  background: white;
+  background: inherit;
   z-index: 1;
   padding: 0.5rem;
   border-bottom: 1px solid #ccc;

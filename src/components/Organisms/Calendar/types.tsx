@@ -1,7 +1,7 @@
-import { EventProps } from "@/components/Molecules/Event/types";
+import { Event } from "../../../types/Read/events";
 
 interface CalendarProps {
-  events?: EventProps[];
+  events?: Event[];
 }
 
 export type { CalendarProps };

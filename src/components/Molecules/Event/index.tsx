@@ -13,6 +13,8 @@ const Event: React.FC<EventProps> = ({
   final_date,
   place,
   parkings,
+  lat,
+  lng,
 }) => {
   const popover = (
     <Popover className={classNames(styles.Popover)}>
@@ -43,7 +45,9 @@ const Event: React.FC<EventProps> = ({
             <strong>Parqueos disponibles: </strong>
             {parkings}
           </span>
-          <Map className={classNames(styles.Map)} />
+          {lat && lng ? (
+            <Map className={classNames(styles.Map)} lat={lat} lng={lng} />
+          ) : undefined}
         </div>
       </Popover.Body>
     </Popover>

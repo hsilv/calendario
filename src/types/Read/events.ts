@@ -18,8 +18,8 @@ interface Event {
   title: string;
   start: string;
   end: string;
-  fechai: string;
-  fechaf: string;
+  fechai: Date;
+  fechaf: Date;
   extendedProps: EventExtendedProps;
 }
 

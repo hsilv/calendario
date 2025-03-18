@@ -24,7 +24,7 @@ const CalendarTemplate: React.FC = () => {
         onAddEvent={() => setShow(true)}
         currentDate={new Date(2026, 1, 1)}
       />
-      <Calendar />
+      <Calendar events={events} />
       <AddEventModal show={show} onHide={() => setShow(false)} />
     </div>
   );
