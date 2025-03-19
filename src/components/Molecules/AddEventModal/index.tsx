@@ -1,4 +1,4 @@
-import { Button, Input } from "@/components/Atoms";
+import { Button } from "@/components/Atoms";
 import { Map } from "@/components/Atoms/Map";
 import React from "react";
 import Modal from "react-bootstrap/Modal";
@@ -17,16 +17,6 @@ const AddEventModal: React.FC<ModalProps> = ({ onHide, ...props }) => {
       </Modal.Header>
       <Modal.Body>
         <Map />
-        <form>
-          <Input label="Nombre del evento" />
-          <Input label="Descripción" />
-          <Input label="Propietario" />
-          <Input label="Lugar" />
-          <Input label="Fecha de inicio" type="datetime-local" />
-          <Input label="Fecha de cierre" type="datetime-local" />
-          <Input label="Oficio" />
-          <Input label="Parqueos disponibles" type="number" />
-        </form>
       </Modal.Body>
       <Modal.Footer>
         <Button>Guardar</Button>

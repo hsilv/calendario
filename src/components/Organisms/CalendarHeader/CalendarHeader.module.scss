@@ -24,10 +24,26 @@
   align-items: center;
   justify-content: space-between;
   position: relative;
+  flex-wrap: wrap;
 }
 
 .Header .Heading {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.Container {
+  @media (max-width: 946px) {
+    .Header {
+      flex-direction: column;
+      row-gap: 1rem;
+    }
+
+    .Heading {
+      position: relative;
+      left: 0;
+      transform: none;
+    }
+  }
 }

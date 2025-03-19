@@ -37,9 +37,9 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({ onAddEvent }) => {
 
   const handleNext = () => {
     const newDate = new Date(currentDate);
-    if (viewMode === "month") {
+    if (viewMode === "mes") {
       newDate.setMonth(newDate.getMonth() + 1);
-    } else if (viewMode === "week") {
+    } else if (viewMode === "semana") {
       newDate.setDate(newDate.getDate() + 7);
     } else if (viewMode === "agenda") {
       newDate.setDate(newDate.getDate() + 1);
@@ -49,9 +49,9 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({ onAddEvent }) => {
 
   const handlePrev = () => {
     const newDate = new Date(currentDate);
-    if (viewMode === "month") {
+    if (viewMode === "mes") {
       newDate.setMonth(newDate.getMonth() - 1);
-    } else if (viewMode === "week") {
+    } else if (viewMode === "semana") {
       newDate.setDate(newDate.getDate() - 7);
     } else if (viewMode === "agenda") {
       newDate.setDate(newDate.getDate() - 1);

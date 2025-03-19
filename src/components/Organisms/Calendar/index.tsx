@@ -20,7 +20,7 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
     throw new Error("CalendarHeader must be used within a CalendarProvider");
   }
 
-  const { currentDate } = context;
+  const { currentDate, viewMode } = context;
 
   const transformedEvents = transformEvents(events);
   const currentYear = currentDate.getFullYear();
@@ -50,8 +50,77 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
     })),
   ];
 
-  return (
-    <div className={styles.CalendarContainer}>
+  const renderMonthView = () => (
+    <div className={styles.Calendar}>
+      <div className={styles.Header}>
+        {daysOfWeek.map((day) => (
+          <div key={day} className={styles.DayOfWeek}>
+            {day}
+          </div>
+        ))}
+      </div>
+      <div className={styles.Days}>
+        {days.map(({ day, currentMonth: isCurrentMonth }, index) => {
+          const isToday =
+            isCurrentMonth &&
+            day === today.getDate() &&
+            currentMonth === today.getMonth() &&
+            currentYear === today.getFullYear();
+
+          const dayOfWeek = (startDayOfWeek + index) % 7;
+          const placement =
+            dayOfWeek === 4 || dayOfWeek === 5 ? "left" : "right";
+
+          return (
+            <div
+              key={index}
+              className={classNames(styles.Day, {
+                [styles.Faded]: !isCurrentMonth,
+                [styles.Today]: isToday,
+              })}
+            >
+              <div className={styles.DayNumber}>{day}</div>
+              {transformedEvents
+                .filter(
+                  (event) =>
+                    event.fechai.getFullYear() === currentYear &&
+                    event.fechai.getMonth() === currentMonth &&
+                    event.fechai.getDate() === day &&
+                    isCurrentMonth
+                )
+                .map((event, index) => {
+                  const lat = parseFloat(event.extendedProps.latitud);
+                  const lng = parseFloat(event.extendedProps.longitud);
+                  return (
+                    <Event
+                      key={index}
+                      name={event.title}
+                      desc={event.extendedProps.descripcion}
+                      place={event.extendedProps.lugar}
+                      init_date={event.fechai}
+                      final_date={event.fechaf}
+                      lat={isNaN(lat) ? 0 : lat}
+                      lng={isNaN(lng) ? 0 : lng}
+                      parkings={0}
+                      placement={placement}
+                    />
+                  );
+                })}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+
+  const renderWeekView = () => {
+    const startOfWeek = currentDate.getDate() - currentDate.getDay();
+    const weekDays = Array.from(
+      { length: 7 },
+      (_, i) => new Date(currentYear, currentMonth, startOfWeek + i)
+    );
+
+    return (
       <div className={styles.Calendar}>
         <div className={styles.Header}>
           {daysOfWeek.map((day) => (
@@ -61,20 +130,22 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
           ))}
         </div>
         <div className={styles.Days}>
-          {days.map(({ day, currentMonth: isCurrentMonth }, index) => {
+          {weekDays.map((date, index) => {
+            const day = date.getDate();
             const isToday =
-              isCurrentMonth &&
               day === today.getDate() &&
               currentMonth === today.getMonth() &&
               currentYear === today.getFullYear();
 
+            const dayOfWeek = (startDayOfWeek + index) % 7;
+            const placement =
+              dayOfWeek === 4 || dayOfWeek === 5 ? "left" : "right";
+
             return (
               <div
                 key={index}
-                className={classNames(styles.Day, {
-                  [styles.Faded]: !isCurrentMonth,
-                  [styles.Today]: isToday,
-                })}
+                className={classNames(styles.Day, { [styles.Today]: isToday })}
+                style={{ minHeight: "500px", maxHeight: "500px" }}
               >
                 <div className={styles.DayNumber}>{day}</div>
                 {transformedEvents
@@ -82,8 +153,7 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
                     (event) =>
                       event.fechai.getFullYear() === currentYear &&
                       event.fechai.getMonth() === currentMonth &&
-                      event.fechai.getDate() === day &&
-                      isCurrentMonth
+                      event.fechai.getDate() === day
                   )
                   .map((event, index) => {
                     const lat = parseFloat(event.extendedProps.latitud);
@@ -99,6 +169,7 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
                         lat={isNaN(lat) ? 0 : lat}
                         lng={isNaN(lng) ? 0 : lng}
                         parkings={0}
+                        placement={placement}
                       />
                     );
                   })}
@@ -107,6 +178,60 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
           })}
         </div>
       </div>
+    );
+  };
+
+  const renderAgendaView = () => {
+    const day = currentDate.getDate();
+    const isToday =
+      day === today.getDate() &&
+      currentMonth === today.getMonth() &&
+      currentYear === today.getFullYear();
+
+    return (
+      <div className={styles.AgendaView}>
+        <div
+          className={classNames(styles.Day, { [styles.Today]: isToday })}
+          style={{ minHeight: "unset", maxHeight: "unset", height: "auto" }}
+        >
+          <div className={styles.DayNumber}>
+            {daysOfWeek[currentDate.getDay()]} {day}
+          </div>
+          {transformedEvents
+            .filter(
+              (event) =>
+                event.fechai.getFullYear() === currentYear &&
+                event.fechai.getMonth() === currentMonth &&
+                event.fechai.getDate() === day
+            )
+            .map((event, index) => {
+              const lat = parseFloat(event.extendedProps.latitud);
+              const lng = parseFloat(event.extendedProps.longitud);
+              return (
+                <Event
+                  key={index}
+                  name={event.title}
+                  desc={event.extendedProps.descripcion}
+                  place={event.extendedProps.lugar}
+                  init_date={event.fechai}
+                  final_date={event.fechaf}
+                  lat={isNaN(lat) ? 0 : lat}
+                  lng={isNaN(lng) ? 0 : lng}
+                  parkings={0}
+                  placement="bottom"
+                />
+              );
+            })}
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div className={styles.CalendarContainer}>
+      {viewMode === "mes" && renderMonthView()}
+      {viewMode === "semana" && renderWeekView()}
+      {viewMode === "agenda" && renderAgendaView()}
     </div>
   );
 };

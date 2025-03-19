@@ -8,9 +8,7 @@ export const CalendarProvider: React.FC<{
   const [currentDate, setCurrentDate] = useState<Date>(
     initialDate || new Date()
   );
-  const [viewMode, setViewMode] = useState<"month" | "week" | "agenda">(
-    "month"
-  );
+  const [viewMode, setViewMode] = useState<"mes" | "semana" | "agenda">("mes");
 
   return (
     <CalendarContext.Provider

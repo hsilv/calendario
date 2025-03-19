@@ -15,6 +15,7 @@ const Event: React.FC<EventProps> = ({
   parkings,
   lat,
   lng,
+  placement = "right",
 }) => {
   const popover = (
     <Popover className={classNames(styles.Popover)}>
@@ -56,7 +57,7 @@ const Event: React.FC<EventProps> = ({
   return (
     <OverlayTrigger
       trigger={["hover", "focus", "click"]}
-      placement="right"
+      placement={placement}
       overlay={popover}
     >
       <div className={classNames(styles.Container)}>

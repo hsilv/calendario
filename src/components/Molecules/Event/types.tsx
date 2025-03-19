@@ -7,6 +7,7 @@ interface EventProps {
   lat: number;
   lng: number;
   parkings: number;
+  placement?: "right" | "left" | "top" | "bottom";
 }
 
 export type { EventProps };

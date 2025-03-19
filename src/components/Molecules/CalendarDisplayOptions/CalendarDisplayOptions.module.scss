@@ -23,6 +23,8 @@ $color-muni-darken: color.adjust(vars.$color-muni, $lightness: -3%);
   --bs-btn-disabled-bg: #{vars.$background-color-body};
   --bs-btn-disabled-border-color: #{vars.$background-color-body};
 
+  text-transform: uppercase;
+
   &:not(:last-child) {
     &:not(:first-child) {
       border-right: 1px solid #{$color-muni-dark};
