@@ -23,6 +23,19 @@ interface Event {
   extendedProps: EventExtendedProps;
 }
 
+interface CreateEvent {
+  nombre: string;
+  descripcion: string;
+  propietario: string;
+  fecha_inicial: string;
+  fecha_final: string;
+  lugar: string;
+  latitud: string;
+  longitud: string;
+  oficio: string;
+  estimado: number;
+}
+
 interface ReadAllEvents extends FetchInterface {
   data: Event[];
 }
@@ -31,4 +44,10 @@ interface ReadEvent extends FetchInterface {
   data: Event;
 }
 
-export type { Event, EventExtendedProps, ReadAllEvents, ReadEvent };
+export type {
+  Event,
+  EventExtendedProps,
+  ReadAllEvents,
+  ReadEvent,
+  CreateEvent,
+};

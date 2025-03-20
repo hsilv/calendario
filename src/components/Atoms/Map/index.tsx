@@ -56,7 +56,8 @@ const Map: React.FC<MapProps> = ({ lat, lng, className }) => {
           const defaultPosition: [number, number] = [51.505, -0.09];
           setPosition(defaultPosition);
           setMarkerPosition(defaultPosition);
-        }
+        },
+        { enableHighAccuracy: true, maximumAge: 0 }
       );
     }
   }, [lat, lng]);

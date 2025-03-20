@@ -1,0 +1,31 @@
+.FormGroup {
+  margin-bottom: 1rem;
+}
+
+.Error {
+  color: red;
+  font-size: 0.875rem;
+}
+
+.Map {
+  width: 100%;
+  height: 300px; // Define una altura para el mapa
+  margin-top: 1rem;
+}
+
+.Parking {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  margin-top: 1rem;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 1rem 0;
+}
+
+.ParqueoGroup {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  padding-inline: 1rem;
+}
