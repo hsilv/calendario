@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
 import classNames from "classnames";
 import { format } from "date-fns";
@@ -6,12 +6,15 @@ import styles from "./AddEventForm.module.scss";
 import { Button, Input } from "@components/Atoms";
 import { MapInput } from "@/components/Atoms/Map/input";
 import useEvent from "@/hooks/useEvent";
+import useCategory from "@/hooks/useCategory";
+import { Spinner } from "react-bootstrap";
 
 type Parqueo = {
+  descripcion: string;
   direccion: string;
   location: string;
-  capacidad_total: number;
-  capacidad_usada: number;
+  capacidad: number;
+  requeridos: number;
   latitud: string;
   longitud: string;
 };
@@ -29,6 +32,7 @@ type FormValues = {
   longitud: string;
   estimado: number;
   parqueos: Parqueo[];
+  tipo: number;
 };
 
 const AddEventForm: React.FC = () => {
@@ -40,6 +44,8 @@ const AddEventForm: React.FC = () => {
     formState: { errors },
   } = useForm<FormValues>();
 
+  const { loading, findAll, categories } = useCategory();
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: "parqueos",
@@ -47,8 +53,17 @@ const AddEventForm: React.FC = () => {
 
   const { createEvent } = useEvent();
 
+  useEffect(() => {
+    findAll();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    const [latitud, longitud] = data.location.split(",");
+    let latitud;
+    let longitud;
+    if (data.location) {
+      [latitud, longitud] = data.location.split(",");
+    }
     const formData = {
       ...data,
       latitud,
@@ -56,12 +71,20 @@ const AddEventForm: React.FC = () => {
       fecha_inicial: format(new Date(data.fecha_inicial), "dd/MM/yyyy hh:mm a"),
       fecha_final: format(new Date(data.fecha_final), "dd/MM/yyyy hh:mm a"),
       parqueos: data.parqueos.map((parqueo) => {
-        const [lat, lng] = parqueo.location.split(",");
-        return {
-          ...parqueo,
-          latitud: lat,
-          longitud: lng,
-        };
+        if (parqueo.location) {
+          const [lat, lng] = parqueo.location.split(",");
+          return {
+            ...parqueo,
+            latitud: lat,
+            longitud: lng,
+          };
+        } else {
+          return {
+            ...parqueo,
+            latitud: "",
+            longitud: "",
+          };
+        }
       }),
     };
     console.log(formData);
@@ -111,6 +134,42 @@ const AddEventForm: React.FC = () => {
           {errors.propietario && (
             <span className={classNames(styles.Error)}>
               {errors.propietario.message}
+            </span>
+          )}
+        </div>
+        <div className={classNames(styles.FormGroup)}>
+          <label htmlFor="tipo" className="form-label">
+            Tipo de evento
+          </label>
+          <div className="d-flex align-items-center">
+            <select
+              id="tipo"
+              className="form-select"
+              {...register("tipo", {
+                required: "Este campo es obligatorio",
+              })}
+            >
+              <option value="">Seleccione un tipo de evento</option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.categoria}
+                </option>
+              ))}
+            </select>
+            {loading && (
+              <Spinner
+                animation="border"
+                role="status"
+                size="sm"
+                className="ms-2"
+              >
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            )}
+          </div>
+          {errors.tipo && (
+            <span className={classNames(styles.Error)}>
+              {errors.tipo.message}
             </span>
           )}
         </div>
@@ -198,6 +257,12 @@ const AddEventForm: React.FC = () => {
             <div key={field.id} className={classNames(styles.ParqueoGroup)}>
               <h4>Parqueo {index + 1}</h4>
               <Input
+                label="Descripción"
+                {...register(`parqueos.${index}.descripcion`, {
+                  required: "Este campo es obligatorio",
+                })}
+              />
+              <Input
                 label="Dirección"
                 {...register(`parqueos.${index}.direccion`, {
                   required: "Este campo es obligatorio",
@@ -222,25 +287,25 @@ const AddEventForm: React.FC = () => {
               <Input
                 label="Capacidad Total"
                 type="number"
-                {...register(`parqueos.${index}.capacidad_total`, {
+                {...register(`parqueos.${index}.capacidad`, {
                   required: "Este campo es obligatorio",
                 })}
               />
-              {errors.parqueos?.[index]?.capacidad_total && (
+              {errors.parqueos?.[index]?.capacidad && (
                 <span className={classNames(styles.Error)}>
-                  {errors.parqueos[index].capacidad_total?.message}
+                  {errors.parqueos[index].capacidad?.message}
                 </span>
               )}
               <Input
                 label="Capacidad Usada"
                 type="number"
-                {...register(`parqueos.${index}.capacidad_usada`, {
+                {...register(`parqueos.${index}.requeridos`, {
                   required: "Este campo es obligatorio",
                 })}
               />
-              {errors.parqueos?.[index]?.capacidad_usada && (
+              {errors.parqueos?.[index]?.requeridos && (
                 <span className={classNames(styles.Error)}>
-                  {errors.parqueos[index].capacidad_usada?.message}
+                  {errors.parqueos[index].requeridos?.message}
                 </span>
               )}
               <Button
@@ -257,10 +322,11 @@ const AddEventForm: React.FC = () => {
             variant="success"
             onClick={() =>
               append({
+                descripcion: "",
                 direccion: "",
                 location: "",
-                capacidad_total: 0,
-                capacidad_usada: 0,
+                capacidad: 0,
+                requeridos: 0,
                 latitud: "",
                 longitud: "",
               })
@@ -272,20 +338,6 @@ const AddEventForm: React.FC = () => {
 
         <Button type="submit">Agregar</Button>
       </form>
-      <div className={classNames(styles.ErrorsContainer)}>
-        {Object.keys(errors).length > 0 && (
-          <div>
-            <h4>Errores del formulario:</h4>
-            <ul>
-              {Object.entries(errors).map(([key, value]) => (
-                <li key={key}>
-                  {key}: {value.message}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
     </div>
   );
 };

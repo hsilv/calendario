@@ -30,8 +30,8 @@ interface CreateEvent {
   fecha_inicial: string;
   fecha_final: string;
   lugar: string;
-  latitud: string;
-  longitud: string;
+  latitud?: string;
+  longitud?: string;
   oficio: string;
   estimado: number;
 }
