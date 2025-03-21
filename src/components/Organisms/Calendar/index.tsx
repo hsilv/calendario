@@ -50,6 +50,13 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
     })),
   ];
 
+  const combineDateAndTime = (date: Date, time: string) => {
+    const [hours, minutes] = time.split(":").map(Number);
+    const combinedDate = new Date(date);
+    combinedDate.setHours(hours, minutes);
+    return combinedDate;
+  };
+
   const renderMonthView = () => (
     <div className={styles.Calendar}>
       <div className={styles.Header}>
@@ -91,14 +98,22 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
                 .map((event, index) => {
                   const lat = parseFloat(event.extendedProps.latitud);
                   const lng = parseFloat(event.extendedProps.longitud);
+                  const initDate = combineDateAndTime(
+                    event.fechai,
+                    event.horai
+                  );
+                  const finalDate = combineDateAndTime(
+                    event.fechaf,
+                    event.horaf
+                  );
                   return (
                     <Event
                       key={index}
                       name={event.title}
                       desc={event.extendedProps.descripcion}
                       place={event.extendedProps.lugar}
-                      init_date={event.fechai}
-                      final_date={event.fechaf}
+                      init_date={initDate}
+                      final_date={finalDate}
                       lat={isNaN(lat) ? 0 : lat}
                       lng={isNaN(lng) ? 0 : lng}
                       parkings={0}
@@ -158,14 +173,22 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
                   .map((event, index) => {
                     const lat = parseFloat(event.extendedProps.latitud);
                     const lng = parseFloat(event.extendedProps.longitud);
+                    const initDate = combineDateAndTime(
+                      event.fechai,
+                      event.horai
+                    );
+                    const finalDate = combineDateAndTime(
+                      event.fechaf,
+                      event.horaf
+                    );
                     return (
                       <Event
                         key={index}
                         name={event.title}
                         desc={event.extendedProps.descripcion}
                         place={event.extendedProps.lugar}
-                        init_date={event.fechai}
-                        final_date={event.fechaf}
+                        init_date={initDate}
+                        final_date={finalDate}
                         lat={isNaN(lat) ? 0 : lat}
                         lng={isNaN(lng) ? 0 : lng}
                         parkings={0}
@@ -207,14 +230,16 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
             .map((event, index) => {
               const lat = parseFloat(event.extendedProps.latitud);
               const lng = parseFloat(event.extendedProps.longitud);
+              const initDate = combineDateAndTime(event.fechai, event.horai);
+              const finalDate = combineDateAndTime(event.fechaf, event.horaf);
               return (
                 <Event
                   key={index}
                   name={event.title}
                   desc={event.extendedProps.descripcion}
                   place={event.extendedProps.lugar}
-                  init_date={event.fechai}
-                  final_date={event.fechaf}
+                  init_date={initDate}
+                  final_date={finalDate}
                   lat={isNaN(lat) ? 0 : lat}
                   lng={isNaN(lng) ? 0 : lng}
                   parkings={0}

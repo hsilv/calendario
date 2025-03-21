@@ -20,6 +20,8 @@ interface Event {
   end: string;
   fechai: Date;
   fechaf: Date;
+  horai: string;
+  horaf: string;
   extendedProps: EventExtendedProps;
 }
 

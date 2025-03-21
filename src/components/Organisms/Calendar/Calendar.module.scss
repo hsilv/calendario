@@ -6,7 +6,7 @@
 }
 
 .Today {
-  background-color: #{color.adjust(vars.$color-muni, $lightness: 45%)};
+  background-color: #{color.adjust(vars.$color-muni, $lightness: 45%)} !important;
 }
 
 .Calendar {
@@ -43,6 +43,7 @@
 }
 
 .Day {
+  background-color: white;
   min-height: 170px;
   max-height: 170px;
   border: 1px solid #ccc;
