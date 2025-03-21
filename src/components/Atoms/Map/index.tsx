@@ -13,6 +13,7 @@ import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
 import iconUrl from "leaflet/dist/images/marker-icon.png";
 import shadowUrl from "leaflet/dist/images/marker-shadow.png";
 import classNames from "classnames";
+import styles from "./Map.module.scss";
 
 const DefaultIcon = L.icon({
   iconRetinaUrl,
@@ -80,7 +81,7 @@ const Map: React.FC<MapProps> = ({ lat, lng, className }) => {
       center={position}
       zoom={13}
       style={{ width: "100%" }}
-      className={classNames(className)}
+      className={classNames(styles.Container, className)}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

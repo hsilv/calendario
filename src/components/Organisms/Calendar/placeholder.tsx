@@ -20,6 +20,7 @@ const events: Event[] = [
     fechaf: new Date(),
     horaf: "22:33:00",
     horai: "22:33:00",
+    parqueosDisponibles: 50,
   },
 ];
 

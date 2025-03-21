@@ -22,6 +22,7 @@ interface Event {
   fechaf: Date;
   horai: string;
   horaf: string;
+  parqueosDisponibles: number;
   extendedProps: EventExtendedProps;
 }
 
