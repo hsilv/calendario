@@ -41,6 +41,7 @@ const AddEventForm: React.FC = () => {
     handleSubmit,
     control,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<FormValues>();
 
@@ -58,16 +59,18 @@ const AddEventForm: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const latitud = watch("latitud");
+  const longitud = watch("longitud");
+
+  useEffect(() => {
+    console.log(latitud, longitud);
+  }, [latitud, longitud]);
+
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    let latitud;
-    let longitud;
-    if (data.location) {
-      [latitud, longitud] = data.location.split(",");
-    }
     const formData = {
       ...data,
-      latitud,
-      longitud,
+      latitud: latitud || data.latitud,
+      longitud: longitud || data.longitud,
       fecha_inicial: format(new Date(data.fecha_inicial), "dd/MM/yyyy hh:mm a"),
       fecha_final: format(new Date(data.fecha_final), "dd/MM/yyyy hh:mm a"),
       parqueos: data.parqueos.map((parqueo) => {
@@ -81,18 +84,14 @@ const AddEventForm: React.FC = () => {
         } else {
           return {
             ...parqueo,
-            latitud: "",
-            longitud: "",
+            latitud: parqueo.latitud,
+            longitud: parqueo.longitud,
           };
         }
       }),
     };
     console.log(formData);
     createEvent(formData);
-  };
-
-  const handleLocationChange = (index: number, value: string) => {
-    setValue(`parqueos.${index}.location`, value);
   };
 
   return (
@@ -215,9 +214,10 @@ const AddEventForm: React.FC = () => {
         </div>
         <div className={classNames(styles.FormGroup)}>
           <MapInput
-            {...register("location", {
-              required: "Este campo es obligatorio",
-            })}
+            latFieldName="latitud"
+            lngFieldName="longitud"
+            register={register}
+            setValue={setValue}
             className={styles.Map}
           />
           {errors.location && (
@@ -274,9 +274,10 @@ const AddEventForm: React.FC = () => {
                 </span>
               )}
               <MapInput
-                {...register(`parqueos.${index}.location`, {
-                  onChange: (e) => handleLocationChange(index, e.target.value),
-                })}
+                latFieldName={`parqueos.${index}.latitud`}
+                lngFieldName={`parqueos.${index}.longitud`}
+                register={register}
+                setValue={setValue}
                 className={styles.Map}
               />
               {errors.parqueos?.[index]?.location && (
