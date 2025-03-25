@@ -116,7 +116,8 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
                       final_date={finalDate}
                       lat={isNaN(lat) ? 0 : lat}
                       lng={isNaN(lng) ? 0 : lng}
-                      parkings={0}
+                      availables={event.parqueosDisponibles}
+                      parqueos={event.parqueos}
                       placement={placement}
                     />
                   );
@@ -191,7 +192,8 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
                         final_date={finalDate}
                         lat={isNaN(lat) ? 0 : lat}
                         lng={isNaN(lng) ? 0 : lng}
-                        parkings={0}
+                        availables={event.parqueosDisponibles}
+                        parqueos={event.parqueos}
                         placement={placement}
                       />
                     );
@@ -242,7 +244,8 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
                   final_date={finalDate}
                   lat={isNaN(lat) ? 0 : lat}
                   lng={isNaN(lng) ? 0 : lng}
-                  parkings={0}
+                  availables={event.parqueosDisponibles}
+                  parqueos={event.parqueos}
                   placement="bottom"
                 />
               );

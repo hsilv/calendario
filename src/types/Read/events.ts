@@ -13,6 +13,18 @@ interface EventExtendedProps {
   latitud: string;
 }
 
+interface Parqueo {
+  capacidad: string;
+  descripcion: string;
+  direccion: string;
+  id: string;
+  latitud: number;
+  longitud: number;
+  observaciones?: string;
+  reservados: string;
+  ruta_foto?: string;
+}
+
 interface Event {
   id: string;
   title: string;
@@ -22,6 +34,7 @@ interface Event {
   fechaf: Date;
   horai: string;
   horaf: string;
+  parqueos: Parqueo[];
   parqueosDisponibles: number;
   extendedProps: EventExtendedProps;
 }

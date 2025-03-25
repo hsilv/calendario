@@ -4,7 +4,7 @@ import classNames from "classnames";
 import styles from "./Event.module.scss";
 import { OverlayTrigger, Popover } from "react-bootstrap";
 import { FaDotCircle } from "react-icons/fa";
-import { Map } from "@components/Atoms/Map";
+import { ParkingMap } from "@/components/Atoms/Map/parkings";
 
 const Event: React.FC<EventProps> = ({
   name,
@@ -12,7 +12,8 @@ const Event: React.FC<EventProps> = ({
   init_date,
   final_date,
   place,
-  parkings,
+  parqueos,
+  availables,
   lat,
   lng,
   placement = "right",
@@ -44,10 +45,15 @@ const Event: React.FC<EventProps> = ({
           </span>
           <span>
             <strong>Parqueos disponibles: </strong>
-            {parkings}
+            {availables}
           </span>
           {lat && lng ? (
-            <Map className={classNames(styles.Map)} lat={lat} lng={lng} />
+            <ParkingMap
+              className={classNames(styles.Map)}
+              lat={lat}
+              lng={lng}
+              parqueos={parqueos ? parqueos : []}
+            />
           ) : undefined}
         </div>
       </Popover.Body>

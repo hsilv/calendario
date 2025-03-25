@@ -14,6 +14,7 @@ const events: Event[] = [
       longitud: "-34.603722",
       latitud: "-58.381592",
     },
+    parqueos: [],
     start: "09/03/2025",
     end: "09/03/2025",
     fechai: new Date(),

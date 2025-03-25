@@ -1,3 +1,8 @@
+interface Parqueo {
+  latitud: number;
+  longitud: number;
+}
+
 interface EventProps {
   name: string;
   desc: string;
@@ -6,7 +11,8 @@ interface EventProps {
   final_date: Date;
   lat: number;
   lng: number;
-  parkings: number;
+  parqueos?: Parqueo[];
+  availables?: number;
   placement?: "right" | "left" | "top" | "bottom";
 }
 

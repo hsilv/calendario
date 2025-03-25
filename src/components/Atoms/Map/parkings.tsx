@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  useMapEvents,
-} from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
@@ -25,24 +19,41 @@ const DefaultIcon = L.icon({
   shadowSize: [41, 41],
 });
 
+const ParkingIcon = L.icon({
+  iconRetinaUrl,
+  iconUrl: "/parking.svg",
+  shadowUrl,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
 L.Marker.prototype.options.icon = DefaultIcon;
 
-interface MapProps {
+interface Parqueo {
+  latitud: number;
+  longitud: number;
+}
+
+export interface ParkingMapProps {
   lat?: number;
   lng?: number;
+  parqueos?: Parqueo[];
   className?: string;
 }
 
-const Map: React.FC<MapProps> = ({ lat, lng, className }) => {
+const ParkingMap: React.FC<ParkingMapProps> = ({
+  lat,
+  lng,
+  parqueos,
+  className,
+}) => {
   const [position, setPosition] = useState<[number, number] | null>(null);
-  const [markerPosition, setMarkerPosition] = useState<[number, number] | null>(
-    null
-  );
 
   useEffect(() => {
     if (lat !== undefined && lng !== undefined) {
       setPosition([lat, lng]);
-      setMarkerPosition([lat, lng]);
     } else {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -51,26 +62,15 @@ const Map: React.FC<MapProps> = ({ lat, lng, className }) => {
             position.coords.longitude,
           ] as [number, number];
           setPosition(coords);
-          setMarkerPosition(coords);
         },
         () => {
           const defaultPosition: [number, number] = [51.505, -0.09];
           setPosition(defaultPosition);
-          setMarkerPosition(defaultPosition);
         },
         { enableHighAccuracy: true, maximumAge: 0 }
       );
     }
   }, [lat, lng]);
-
-  const MapClickHandler = () => {
-    useMapEvents({
-      click: (e) => {
-        setMarkerPosition([e.latlng.lat, e.latlng.lng]);
-      },
-    });
-    return null;
-  };
 
   if (!position) {
     return <div>Loading...</div>;
@@ -79,7 +79,7 @@ const Map: React.FC<MapProps> = ({ lat, lng, className }) => {
   return (
     <MapContainer
       center={position}
-      zoom={11}
+      zoom={15}
       style={{ width: "100%" }}
       className={classNames(styles.Container, className)}
     >
@@ -87,16 +87,21 @@ const Map: React.FC<MapProps> = ({ lat, lng, className }) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-      <MapClickHandler />
-      {markerPosition && (
-        <Marker position={markerPosition}>
-          <Popup>
-            Marcador personalizado. <br /> Puedes moverlo.
-          </Popup>
-        </Marker>
-      )}
+      <Marker position={position}>
+        <Popup>Marcador personalizado.</Popup>
+      </Marker>
+      {parqueos &&
+        parqueos.map((parqueo, index) => (
+          <Marker
+            key={index}
+            position={[parqueo.latitud, parqueo.longitud]}
+            icon={ParkingIcon}
+          >
+            <Popup>Parqueo {index + 1}</Popup>
+          </Marker>
+        ))}
     </MapContainer>
   );
 };
 
-export { Map };
+export { ParkingMap };
