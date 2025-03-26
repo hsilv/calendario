@@ -2,6 +2,7 @@ import { Event } from "../../../types/Read/events";
 
 const events: Event[] = [
   {
+    estimado: 0,
     id: "1",
     title: "Evento 1",
     extendedProps: {
@@ -11,8 +12,8 @@ const events: Event[] = [
       oficio: "oficio 1",
       propietario: "propietario 1",
       tipo: "tipo 1",
-      longitud: "-34.603722",
-      latitud: "-58.381592",
+      longitud: -34.603722,
+      latitud: -58.381592,
     },
     parqueos: [],
     start: "09/03/2025",

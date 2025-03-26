@@ -1,0 +1,73 @@
+@use "../../../styles/_variables.scss" as vars;
+@use "sass:color";
+
+.Header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.BackButton {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.2rem;
+  align-self: flex-start;
+  outline: none;
+  border: none;
+  background-color: #{vars.$color-muni};
+  color: #{color.adjust(vars.$color-muni, $lightness: -15%)};
+  padding-bottom: 5px;
+  padding-inline: 7px;
+  border-radius: 5px;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.Heading {
+  margin: 0 auto;
+  padding: 0;
+}
+
+.Container {
+  padding-inline: 5%;
+  padding-block: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+}
+
+.Content {
+  display: flex;
+  flex-direction: column;
+}
+
+.Parking {
+  display: flex;
+  flex-direction: column;
+}
+
+.Content {
+  background-color: #{color.adjust(white, $lightness: -4%)};
+  padding-inline: 1.5rem;
+  padding-block-start: 1rem;
+  padding-block-end: 1.5rem;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.Data {
+  display: flex;
+  flex-direction: column;
+}
+
+.ParkingContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.5rem;
+}

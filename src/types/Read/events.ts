@@ -9,8 +9,8 @@ interface EventExtendedProps {
   tipo: string;
   categoria: string;
   foto?: string;
-  longitud: string;
-  latitud: string;
+  longitud: number;
+  latitud: number;
 }
 
 interface Parqueo {
@@ -34,6 +34,7 @@ interface Event {
   fechaf: Date;
   horai: string;
   horaf: string;
+  estimado: number;
   parqueos: Parqueo[];
   parqueosDisponibles: number;
   extendedProps: EventExtendedProps;

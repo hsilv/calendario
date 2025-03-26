@@ -5,8 +5,10 @@ import styles from "./Event.module.scss";
 import { OverlayTrigger, Popover } from "react-bootstrap";
 import { FaDotCircle } from "react-icons/fa";
 import { ParkingMap } from "@/components/Atoms/Map/parkings";
+import { Link } from "react-router-dom";
 
 const Event: React.FC<EventProps> = ({
+  id,
   name,
   desc,
   init_date,
@@ -66,10 +68,12 @@ const Event: React.FC<EventProps> = ({
       placement={placement}
       overlay={popover}
     >
-      <div className={classNames(styles.Container)}>
-        <FaDotCircle className={classNames(styles.Icon)} />
-        {name}
-      </div>
+      <Link to={`/evento/${id}`}>
+        <div className={classNames(styles.Container)}>
+          <FaDotCircle className={classNames(styles.Icon)} />
+          {name}
+        </div>
+      </Link>
     </OverlayTrigger>
   );
 };

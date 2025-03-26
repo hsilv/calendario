@@ -20,5 +20,4 @@ Default.args = {
   lat: 0,
   lng: 0,
   place: "Lugar del evento 1",
-  parkings: 52,
 };

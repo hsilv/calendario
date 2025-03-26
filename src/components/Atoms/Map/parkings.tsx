@@ -54,23 +54,10 @@ const ParkingMap: React.FC<ParkingMapProps> = ({
   useEffect(() => {
     if (lat !== undefined && lng !== undefined) {
       setPosition([lat, lng]);
-    } else {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const coords = [
-            position.coords.latitude,
-            position.coords.longitude,
-          ] as [number, number];
-          setPosition(coords);
-        },
-        () => {
-          const defaultPosition: [number, number] = [51.505, -0.09];
-          setPosition(defaultPosition);
-        },
-        { enableHighAccuracy: true, maximumAge: 0 }
-      );
+    } else if (parqueos && parqueos.length > 0) {
+      setPosition([parqueos[0].latitud, parqueos[0].longitud]);
     }
-  }, [lat, lng]);
+  }, [lat, lng, parqueos]);
 
   if (!position) {
     return <div>Loading...</div>;
@@ -87,9 +74,11 @@ const ParkingMap: React.FC<ParkingMapProps> = ({
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-      <Marker position={position}>
-        <Popup>Marcador personalizado.</Popup>
-      </Marker>
+      {lat !== undefined && lng !== undefined && (
+        <Marker position={position}>
+          <Popup>Marcador personalizado.</Popup>
+        </Marker>
+      )}
       {parqueos &&
         parqueos.map((parqueo, index) => (
           <Marker

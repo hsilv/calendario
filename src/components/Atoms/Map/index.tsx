@@ -30,10 +30,11 @@ L.Marker.prototype.options.icon = DefaultIcon;
 interface MapProps {
   lat?: number;
   lng?: number;
+  zoom?: number;
   className?: string;
 }
 
-const Map: React.FC<MapProps> = ({ lat, lng, className }) => {
+const Map: React.FC<MapProps> = ({ lat, lng, className, zoom }) => {
   const [position, setPosition] = useState<[number, number] | null>(null);
   const [markerPosition, setMarkerPosition] = useState<[number, number] | null>(
     null
@@ -79,7 +80,7 @@ const Map: React.FC<MapProps> = ({ lat, lng, className }) => {
   return (
     <MapContainer
       center={position}
-      zoom={11}
+      zoom={zoom || 11}
       style={{ width: "100%" }}
       className={classNames(styles.Container, className)}
     >

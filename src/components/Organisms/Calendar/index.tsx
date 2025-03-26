@@ -96,8 +96,8 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
                     isCurrentMonth
                 )
                 .map((event, index) => {
-                  const lat = parseFloat(event.extendedProps.latitud);
-                  const lng = parseFloat(event.extendedProps.longitud);
+                  const lat = event.extendedProps.latitud;
+                  const lng = event.extendedProps.longitud;
                   const initDate = combineDateAndTime(
                     event.fechai,
                     event.horai
@@ -108,6 +108,7 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
                   );
                   return (
                     <Event
+                      id={event.id}
                       key={index}
                       name={event.title}
                       desc={event.extendedProps.descripcion}
@@ -172,8 +173,8 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
                       event.fechai.getDate() === day
                   )
                   .map((event, index) => {
-                    const lat = parseFloat(event.extendedProps.latitud);
-                    const lng = parseFloat(event.extendedProps.longitud);
+                    const lat = event.extendedProps.latitud;
+                    const lng = event.extendedProps.longitud;
                     const initDate = combineDateAndTime(
                       event.fechai,
                       event.horai
@@ -184,6 +185,7 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
                     );
                     return (
                       <Event
+                        id={event.id}
                         key={index}
                         name={event.title}
                         desc={event.extendedProps.descripcion}
@@ -230,12 +232,13 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
                 event.fechai.getDate() === day
             )
             .map((event, index) => {
-              const lat = parseFloat(event.extendedProps.latitud);
-              const lng = parseFloat(event.extendedProps.longitud);
+              const lat = event.extendedProps.latitud;
+              const lng = event.extendedProps.longitud;
               const initDate = combineDateAndTime(event.fechai, event.horai);
               const finalDate = combineDateAndTime(event.fechaf, event.horaf);
               return (
                 <Event
+                  id={event.id}
                   key={index}
                   name={event.title}
                   desc={event.extendedProps.descripcion}
