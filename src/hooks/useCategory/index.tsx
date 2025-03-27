@@ -12,7 +12,6 @@ const useCategory = () => {
     setError(null);
     try {
       const response = await API.get<ReadCategories>("/categories");
-      console.log("RESPUESTA >>>", response);
       setCategories(response.data.data);
     } catch (err: unknown) {
       if (err instanceof Error) {

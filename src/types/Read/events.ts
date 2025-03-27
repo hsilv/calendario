@@ -47,14 +47,21 @@ interface CreateEvent {
   fecha_inicial: string;
   fecha_final: string;
   lugar: string;
-  latitud?: string;
-  longitud?: string;
-  oficio: string;
+  latitud: number;
+  longitud: number;
+  oficio?: string;
   estimado: number;
 }
 
 interface ReadAllEvents extends FetchInterface {
   data: Event[];
+}
+
+interface CreatedEvent extends FetchInterface {
+  data: {
+    success: string;
+    data: Event;
+  };
 }
 
 interface ReadEvent extends FetchInterface {
@@ -67,4 +74,5 @@ export type {
   ReadAllEvents,
   ReadEvent,
   CreateEvent,
+  CreatedEvent,
 };

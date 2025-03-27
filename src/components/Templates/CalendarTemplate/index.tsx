@@ -12,11 +12,8 @@ const CalendarTemplate: React.FC = () => {
 
   useEffect(() => {
     findAll();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    console.log(events);
-  }, [events]);
 
   return (
     <div className={classNames(styles.Container)}>

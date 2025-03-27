@@ -1,4 +1,5 @@
 import {
+  CreatedEvent,
   CreateEvent,
   Event,
   ReadAllEvents,
@@ -18,9 +19,7 @@ const useEvent = () => {
     setLoading(true);
     setError(null);
     try {
-      console.log("full fetch");
       const response = await API.get<ReadAllEvents>("/evento");
-      console.log("RESPUESTA >>>", response);
       setEvents(response.data.data);
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -37,7 +36,6 @@ const useEvent = () => {
     setLoading(true);
     setError(null);
     try {
-      console.log(`fetching: /evento/${id}`);
       const response = await API.get<ReadEvent>(`/evento/${id}`);
       setEvent(response.data.data);
     } catch (err: unknown) {
@@ -55,8 +53,8 @@ const useEvent = () => {
     setLoading(true);
     setError(null);
     try {
-      console.log("creating event");
-      await API.post("/evento", data);
+      const response = await API.post<CreatedEvent>("/evento", data);
+      setEvent(response.data?.data?.data);
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
@@ -68,7 +66,16 @@ const useEvent = () => {
     }
   };
 
-  return { loading, error, event, events, findAll, findOne, createEvent };
+  return {
+    loading,
+    error,
+    event,
+    events,
+    findAll,
+    findOne,
+    createEvent,
+    setEvent,
+  };
 };
 
 export default useEvent;

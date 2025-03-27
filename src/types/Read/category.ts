@@ -1,7 +1,7 @@
 import { FetchInterface } from "../fetch";
 
 interface Category {
-  id: string;
+  id: number;
   categoria: string;
 }
 
