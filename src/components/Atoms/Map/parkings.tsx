@@ -21,7 +21,7 @@ const DefaultIcon = L.icon({
 
 const ParkingIcon = L.icon({
   iconRetinaUrl,
-  iconUrl: "/parking.svg",
+  iconUrl: "./parking.svg",
   shadowUrl,
   iconSize: [25, 41],
   iconAnchor: [12, 41],
