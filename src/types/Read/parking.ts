@@ -1,3 +1,5 @@
+import { FetchInterface } from "../fetch";
+
 interface Parqueo {
   id: string;
   descripcion: string;
@@ -9,4 +11,19 @@ interface Parqueo {
   observaciones?: string;
 }
 
-export type { Parqueo };
+interface ReadParqueo {
+  id: string;
+  descripcion: string;
+  direccion: string;
+  capacidad: number;
+  reservados: number;
+  latitud: number;
+  longitud: number;
+  observaciones?: string;
+}
+
+interface ReadParkings extends FetchInterface {
+  data: ReadParqueo[];
+}
+
+export type { Parqueo, ReadParkings, ReadParqueo };

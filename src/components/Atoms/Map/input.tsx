@@ -54,6 +54,15 @@ const MapInput: React.FC<MapProps> = ({
       setMarkerPosition([lat, lng]);
       setValue(latFieldName, lat);
       setValue(lngFieldName, lng);
+    }
+  }, [lat, lng, setValue, latFieldName, lngFieldName]);
+
+  useEffect(() => {
+    if (lat !== undefined && lng !== undefined) {
+      setPosition([lat, lng]);
+      setMarkerPosition([lat, lng]);
+      setValue(latFieldName, lat);
+      setValue(lngFieldName, lng);
     } else {
       navigator.geolocation.getCurrentPosition(
         (position) => {

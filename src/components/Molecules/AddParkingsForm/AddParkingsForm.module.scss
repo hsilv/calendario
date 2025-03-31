@@ -1,0 +1,42 @@
+.Map {
+  height: 200px;
+}
+.Parking {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.Label {
+  font-weight: bold;
+}
+
+.ParqueoGroup {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.7rem;
+  padding-block: 1rem;
+  border-block: 1px solid rgb(207, 207, 207);
+}
+
+.Button {
+  background-color: skyblue;
+  border: 1px solid skyblue;
+  color: rgb(40, 114, 143);
+
+  &:hover {
+    background-color: skyblue;
+    border: 1px solid skyblue;
+    color: rgb(40, 114, 143);
+  }
+
+  &:active {
+    background-color: skyblue;
+    border: 1px solid skyblue;
+    color: rgb(40, 114, 143);
+  }
+}
+
+.Error {
+  color: red;
+}

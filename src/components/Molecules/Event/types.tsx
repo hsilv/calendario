@@ -15,6 +15,7 @@ interface EventProps {
   parqueos?: Parqueo[];
   availables?: number;
   placement?: "right" | "left" | "top" | "bottom";
+  estado?: "ACTIVO" | "FINALIZADO" | "CANCELADO" | "DENEGADO" | "PENDIENTE";
 }
 
 export type { EventProps };

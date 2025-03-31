@@ -108,6 +108,7 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
                   );
                   return (
                     <Event
+                      estado={event.extendedProps.status}
                       id={event.id}
                       key={index}
                       name={event.title}
@@ -185,6 +186,7 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
                     );
                     return (
                       <Event
+                        estado={event.extendedProps.status}
                         id={event.id}
                         key={index}
                         name={event.title}
@@ -236,8 +238,10 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
               const lng = event.extendedProps.longitud;
               const initDate = combineDateAndTime(event.fechai, event.horai);
               const finalDate = combineDateAndTime(event.fechaf, event.horaf);
+
               return (
                 <Event
+                  estado={event.extendedProps.status}
                   id={event.id}
                   key={index}
                   name={event.title}

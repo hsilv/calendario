@@ -1,3 +1,5 @@
+import { CreateParqueo } from "@/types/Create/parking";
+
 interface AddEventFormValues {
   nombre: string;
   descripcion: string;
@@ -11,6 +13,7 @@ interface AddEventFormValues {
   latitud: number;
   longitud: number;
   chapa?: number;
+  parqueos: CreateParqueo[];
 }
 
 export type { AddEventFormValues };

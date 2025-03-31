@@ -19,6 +19,7 @@ const Event: React.FC<EventProps> = ({
   lat,
   lng,
   placement = "right",
+  estado = "PENDIENTE",
 }) => {
   const popover = (
     <Popover className={classNames(styles.Popover)}>
@@ -70,7 +71,7 @@ const Event: React.FC<EventProps> = ({
     >
       <Link to={`/evento/${id}`}>
         <div className={classNames(styles.Container)}>
-          <FaDotCircle className={classNames(styles.Icon)} />
+          <FaDotCircle className={classNames(styles.Icon, styles[estado])} />
           {name}
         </div>
       </Link>

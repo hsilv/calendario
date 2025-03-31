@@ -1,19 +1,20 @@
 import { API } from "@/helpers/axios";
-import { Parqueo } from "@/types/Read/parking";
+import { ReadParkings, ReadParqueo } from "@/types/Read/parking";
 import { useState } from "react";
 
 const useParking = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [parking, setParking] = useState<Parqueo | null>(null);
-  const [parkings, setParkings] = useState<Parqueo[]>([]);
+  const [parking] = useState<ReadParqueo | null>(null);
+  const [parkings, setParkings] = useState<ReadParqueo[]>([]);
 
   const findAll = async () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await API.get<Parqueo[]>("/parking");
-      setParkings(res.data);
+      const res = await API.get<ReadParkings>("/parqueo");
+      console.log(res.data);
+      setParkings(res.data.data);
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
@@ -29,8 +30,8 @@ const useParking = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await API.get<Parqueo>(`/parking?search=${criteria}`);
-      setParking(res.data);
+      const res = await API.get<ReadParkings>(`/parqueo?search=${criteria}`);
+      setParkings(res.data.data);
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);

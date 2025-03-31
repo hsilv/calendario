@@ -11,6 +11,7 @@ interface EventExtendedProps {
   foto?: string;
   longitud: number;
   latitud: number;
+  status?: "ACTIVO" | "FINALIZADO" | "CANCELADO" | "DENEGADO" | "PENDIENTE";
 }
 
 interface Parqueo {
@@ -25,6 +26,13 @@ interface Parqueo {
   ruta_foto?: string;
 }
 
+type EventStatus =
+  | "ACTIVO"
+  | "FINALIZADO"
+  | "CANCELADO"
+  | "DENEGADO"
+  | "PENDIENTE";
+
 interface Event {
   id: string;
   title: string;
@@ -38,6 +46,7 @@ interface Event {
   parqueos: Parqueo[];
   parqueosDisponibles: number;
   extendedProps: EventExtendedProps;
+  status: EventStatus;
 }
 
 interface CreateEvent {
