@@ -7,16 +7,17 @@ import { AddEventForm } from "../AddEventForm";
 interface ModalProps {
   show: boolean;
   onHide: () => void;
+  pmt: boolean;
 }
 
-const AddEventModal: React.FC<ModalProps> = ({ onHide, ...props }) => {
+const AddEventModal: React.FC<ModalProps> = ({ onHide, pmt, ...props }) => {
   return (
     <Modal {...props} centered>
       <Modal.Header closeButton onHide={onHide}>
         <Modal.Title>Crear evento</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <AddEventForm />
+        <AddEventForm pmt={pmt} />
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={onHide}>Cancelar</Button>

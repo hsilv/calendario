@@ -8,6 +8,7 @@ import {
 } from "@components/Molecules";
 import { CalendarHeaderProps } from "./types";
 import { CalendarContext } from "@/context/Calendar/context";
+import logo from "/Logo_Vialto-02.png";
 
 const CalendarHeader: React.FC<CalendarHeaderProps> = ({ onAddEvent }) => {
   const context = useContext(CalendarContext);
@@ -65,7 +66,12 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({ onAddEvent }) => {
 
   return (
     <div className={classNames(styles.Container)}>
-      <h1 className={classNames(styles.Heading)}>Calendario de Eventos</h1>
+      <div className={classNames(styles.Title)}>
+        <img src={logo} className={classNames(styles.Logo)} />
+        <h1 className={classNames(styles.Heading)}>
+          Programador Digital de Eventos
+        </h1>
+      </div>
       <Button
         variant="success"
         className={classNames(styles.Button)}

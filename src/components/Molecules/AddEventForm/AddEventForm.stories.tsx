@@ -9,5 +9,5 @@ export default {
   },
 } as Meta;
 
-const Template: StoryFn = (args) => <AddEventForm {...args} />;
+const Template: StoryFn = (args) => <AddEventForm pmt={false} {...args} />;
 export const Default = Template.bind({});

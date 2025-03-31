@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 
 const Event: React.FC<EventProps> = ({
   id,
+  pmt,
   name,
   desc,
   init_date,
@@ -69,7 +70,7 @@ const Event: React.FC<EventProps> = ({
       placement={placement}
       overlay={popover}
     >
-      <Link to={`/evento/${id}`}>
+      <Link to={pmt ? `/pmt/evento/${id}` : `/evento/${id}`}>
         <div className={classNames(styles.Container)}>
           <FaDotCircle className={classNames(styles.Icon, styles[estado])} />
           {name}

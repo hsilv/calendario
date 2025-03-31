@@ -5,6 +5,7 @@ interface Parqueo {
 
 interface EventProps {
   id: string;
+  pmt: boolean;
   name: string;
   desc: string;
   place: string;

@@ -9,5 +9,5 @@ export default {
   },
 } as Meta;
 
-const Template: StoryFn = (args) => <Calendar {...args} />;
+const Template: StoryFn = (args) => <Calendar pmt={false} {...args} />;
 export const Default = Template.bind({});

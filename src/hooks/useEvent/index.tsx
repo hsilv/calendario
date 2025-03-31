@@ -32,6 +32,25 @@ const useEvent = () => {
     }
   };
 
+  const updateStatus = async (id: number, status: number) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await API.put<ReadEvent>(`/admin/evento/status/${id}`, {
+        estado: status,
+      });
+      setEvent(response.data.data);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Ocurrió un error desconocido");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const findOne = async (id: string) => {
     setLoading(true);
     setError(null);
@@ -75,6 +94,7 @@ const useEvent = () => {
     findOne,
     createEvent,
     setEvent,
+    updateStatus,
   };
 };
 

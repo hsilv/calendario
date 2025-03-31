@@ -12,7 +12,9 @@ import { Spinner } from "react-bootstrap";
 
 import { AddParkingsForm } from "../AddParkingsForm";
 
-const AddEventForm: React.FC = () => {
+const AddEventForm: React.FC<{
+  pmt: boolean;
+}> = ({ pmt }) => {
   const {
     register,
     handleSubmit,
@@ -75,7 +77,7 @@ const AddEventForm: React.FC = () => {
           register={register}
           errors={errors}
           watch={watch}
-          formOption="PMT"
+          formOption={pmt ? "PMT" : "Vecino"}
         />
         <div className={classNames(styles.FormGroup)}>
           <MapInput

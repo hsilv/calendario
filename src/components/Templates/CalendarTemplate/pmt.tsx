@@ -8,7 +8,7 @@ import useEvent from "@/hooks/useEvent";
 import { EventMap } from "@/components/Atoms/Map/events";
 import { FaDotCircle } from "react-icons/fa";
 
-const CalendarTemplate: React.FC = () => {
+const PmtCalendarTemplate: React.FC = () => {
   const [show, setShow] = useState(false);
   const { findAll, events } = useEvent();
 
@@ -20,11 +20,11 @@ const CalendarTemplate: React.FC = () => {
   return (
     <div className={classNames(styles.Container)}>
       <CalendarHeader
-        pmt={false}
+        pmt
         onAddEvent={() => setShow(true)}
         currentDate={new Date(2026, 1, 1)}
       />
-      <Calendar events={events} pmt={false} />
+      <Calendar events={events} pmt />
       <div>
         <div className={classNames(styles.Heading)}>
           <FaDotCircle className={classNames(styles.ACTIVO)} />
@@ -48,9 +48,9 @@ const CalendarTemplate: React.FC = () => {
         </div>
       </div>
       <EventMap eventos={events} />
-      <AddEventModal show={show} onHide={() => setShow(false)} pmt={false} />
+      <AddEventModal show={show} onHide={() => setShow(false)} pmt />
     </div>
   );
 };
 
-export { CalendarTemplate };
+export { PmtCalendarTemplate };

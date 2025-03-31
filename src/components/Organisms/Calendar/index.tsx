@@ -13,7 +13,7 @@ import {
 import { CalendarProps } from "./types";
 import { CalendarContext } from "@/context/Calendar/context";
 
-const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
+const Calendar: React.FC<CalendarProps> = ({ events = defaults, pmt }) => {
   const context = useContext(CalendarContext);
 
   if (!context) {
@@ -108,6 +108,7 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
                   );
                   return (
                     <Event
+                      pmt={pmt}
                       estado={event.extendedProps.status}
                       id={event.id}
                       key={index}
@@ -186,6 +187,7 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
                     );
                     return (
                       <Event
+                        pmt={pmt}
                         estado={event.extendedProps.status}
                         id={event.id}
                         key={index}
@@ -241,6 +243,7 @@ const Calendar: React.FC<CalendarProps> = ({ events = defaults }) => {
 
               return (
                 <Event
+                  pmt={pmt}
                   estado={event.extendedProps.status}
                   id={event.id}
                   key={index}

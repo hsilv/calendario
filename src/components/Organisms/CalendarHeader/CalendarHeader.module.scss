@@ -14,6 +14,7 @@
 }
 
 .Heading {
+  text-align: center;
   color: #{vars.$heading-color};
 }
 
@@ -46,4 +47,17 @@
       transform: none;
     }
   }
+}
+
+.Title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 1.5rem;
+}
+
+.Logo {
+  width: 75px;
+  height: 75px;
 }
