@@ -5,6 +5,7 @@ import { CalendarHeader } from "@/components/Organisms/CalendarHeader";
 import { Calendar } from "@/components/Organisms/Calendar";
 import { AddEventModal } from "@/components/Molecules/AddEventModal";
 import useEvent from "@/hooks/useEvent";
+import { EventMap } from "@/components/Atoms/Map/events";
 
 const CalendarTemplate: React.FC = () => {
   const [show, setShow] = useState(false);
@@ -22,6 +23,7 @@ const CalendarTemplate: React.FC = () => {
         currentDate={new Date(2026, 1, 1)}
       />
       <Calendar events={events} />
+      <EventMap eventos={events} />
       <AddEventModal show={show} onHide={() => setShow(false)} />
     </div>
   );
