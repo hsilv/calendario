@@ -25,14 +25,17 @@ const PmtEventTemplate: React.FC = () => {
 
   useEffect(() => {
     if (id) {
-      findOne(id).then(() => {
-        if (event?.extendedProps?.status) {
-          setSelectedStatus(reverseStatusMap[event.extendedProps.status]); // Set default status
-        }
-      });
+      findOne(id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, [id /* findOne */]);
+
+  useEffect(() => {
+    if (event?.extendedProps?.status) {
+      setSelectedStatus(reverseStatusMap[event.extendedProps.status]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [event]);
 
   const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedStatus(Number(e.target.value));
